@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive_ce.dart';
 
-import '../../../core/error/failure.dart';
 import '../../../core/storage/local_storage.dart';
 import '../../news/domain/article.dart';
 import '../domain/favorites_repository.dart';
@@ -27,23 +24,12 @@ class HiveFavoritesRepository implements FavoritesRepository {
 
   @override
   Future<void> save(Article article) {
-    return _write(() => _box.put(article.id, _toMap(article)));
+    return writeToStorage(() => _box.put(article.id, _toMap(article)));
   }
 
   @override
   Future<void> remove(String articleId) {
-    return _write(() => _box.delete(articleId));
-  }
-
-  /// Runs a write and reports any storage problem as a [StorageFailure].
-  Future<void> _write(Future<void> Function() write) async {
-    try {
-      await write();
-    } on HiveError {
-      throw const StorageFailure();
-    } on FileSystemException {
-      throw const StorageFailure();
-    }
+    return writeToStorage(() => _box.delete(articleId));
   }
 
   static Map<String, Object?> _toMap(Article article) {

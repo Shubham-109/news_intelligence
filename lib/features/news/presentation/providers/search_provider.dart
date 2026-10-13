@@ -40,9 +40,12 @@ class SearchQuery {
   int get hashCode => Object.hash(text, category, sort);
 }
 
-final searchQueryProvider = NotifierProvider<SearchQueryNotifier, SearchQuery>(
-  SearchQueryNotifier.new,
-);
+/// Auto disposed, so the query resets together with the search screen, for
+/// example after signing out.
+final searchQueryProvider =
+    NotifierProvider.autoDispose<SearchQueryNotifier, SearchQuery>(
+      SearchQueryNotifier.new,
+    );
 
 class SearchQueryNotifier extends Notifier<SearchQuery> {
   static final _whitespace = RegExp(r'\s+');
