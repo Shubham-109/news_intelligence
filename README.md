@@ -16,14 +16,26 @@ Built for the Mini News Intelligence assignment with Flutter, Riverpod and Hive.
 
 1. Install Flutter 3.35 or newer. The app was built and tested with Flutter 3.44.8.
 2. Get a free developer key from [The Guardian Open Platform](https://open-platform.theguardian.com/access/). It arrives by email within a minute.
-3. Run the app with the key:
+3. Create your local environment file from the example and put the key in it:
+
+```sh
+cp .env.example .env
+```
+
+```text
+GUARDIAN_API_KEY=your_key
+```
+
+4. Run the app:
 
 ```sh
 flutter pub get
-flutter run --dart-define=GUARDIAN_API_KEY=your_key
+flutter run
 ```
 
-The key is read at build time, so it never ends up in the repository. Without a key the app still starts and explains that one is needed.
+The key is loaded at startup with `flutter_dotenv`. `.env` is ignored by git, so the key never ends up in the repository, while `.env.example` shows what the file needs. The file must exist for the build because it is bundled as an asset. If the key inside it is missing, the app still starts and explains that one is needed.
+
+Like any key shipped inside a mobile app, it can be read from the app bundle. A production app would call the API through its own backend instead.
 
 To sign in, use any email address and a password with at least 6 characters.
 
