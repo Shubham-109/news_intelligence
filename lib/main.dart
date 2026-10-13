@@ -3,8 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app/app.dart';
 import 'core/error/failure.dart';
+import 'core/storage/local_storage.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initLocalStorage();
   runApp(const ProviderScope(retry: _retryRateLimited, child: NewsApp()));
 }
 

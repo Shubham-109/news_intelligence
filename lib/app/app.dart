@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../core/theme/app_theme.dart';
-import '../features/news/presentation/screens/feed_screen.dart';
+import 'home_shell.dart';
 
 class NewsApp extends StatelessWidget {
   const NewsApp({super.key});
@@ -13,7 +13,7 @@ class NewsApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      home: const FeedScreen(),
+      home: const HomeShell(),
     );
   }
 }

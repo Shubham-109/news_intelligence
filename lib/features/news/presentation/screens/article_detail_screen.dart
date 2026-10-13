@@ -2,11 +2,14 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/error/failure.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/date_formatting.dart';
 import '../../../../core/widgets/snack_bar.dart';
+import '../../../favorites/presentation/providers/favorites_provider.dart';
 import '../../domain/article.dart';
 import '../widgets/article_image.dart';
 import '../widgets/article_meta.dart';
@@ -35,7 +38,12 @@ class ArticleDetailScreen extends StatelessWidget {
     final mutedColor = theme.colorScheme.onSurfaceVariant;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          _FavoriteButton(article: article),
+          const SizedBox(width: 8),
+        ],
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final sidePadding = math.max(
@@ -98,6 +106,43 @@ class ArticleDetailScreen extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class _FavoriteButton extends ConsumerWidget {
+  const _FavoriteButton({required this.article});
+
+  final Article article;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isSaved = ref.watch(isFavoriteProvider(article.id));
+
+    return IconButton(
+      tooltip: isSaved ? 'Remove from favorites' : 'Save to favorites',
+      isSelected: isSaved,
+      icon: const Icon(Icons.bookmark_border_rounded),
+      selectedIcon: Icon(
+        Icons.bookmark_rounded,
+        color: Theme.of(context).colorScheme.primary,
+      ),
+      onPressed: () => _toggle(context, ref),
+    );
+  }
+
+  Future<void> _toggle(BuildContext context, WidgetRef ref) async {
+    try {
+      final saved = await ref.read(favoritesProvider.notifier).toggle(article);
+      await HapticFeedback.selectionClick();
+      if (context.mounted) {
+        showSnackBar(
+          context,
+          saved ? 'Saved to favorites' : 'Removed from favorites',
+        );
+      }
+    } on Failure catch (error) {
+      if (context.mounted) showSnackBar(context, error.message);
+    }
   }
 }
 
