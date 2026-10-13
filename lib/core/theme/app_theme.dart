@@ -176,6 +176,28 @@ abstract final class AppTheme {
           );
         }),
       ),
+      chipTheme: ChipThemeData(
+        backgroundColor: colors.surface,
+        selectedColor: colors.inverseSurface,
+        side: WidgetStateBorderSide.resolveWith(
+          (states) => BorderSide(
+            color: states.contains(WidgetState.selected)
+                ? colors.inverseSurface
+                : colors.outlineVariant,
+          ),
+        ),
+        shape: const StadiumBorder(),
+        labelStyle: text.labelMedium?.copyWith(
+          color: WidgetStateColor.resolveWith(
+            (states) => states.contains(WidgetState.selected)
+                ? colors.onInverseSurface
+                : colors.onSurface,
+          ),
+        ),
+        showCheckmark: false,
+        elevation: 0,
+        pressElevation: 0,
+      ),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
         backgroundColor: colors.inverseSurface,

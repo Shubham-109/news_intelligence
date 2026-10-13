@@ -6,6 +6,7 @@ import '../../../core/network/api_client.dart';
 import '../domain/article_page.dart';
 import '../domain/news_category.dart';
 import '../domain/news_repository.dart';
+import '../domain/search_sort.dart';
 import 'article_model.dart';
 
 final newsRepositoryProvider = Provider<NewsRepository>(
@@ -35,14 +36,36 @@ class GuardianNewsRepository implements NewsRepository {
     return _search(category: category, orderBy: 'newest', page: page);
   }
 
+  @override
+  Future<ArticlePage> searchArticles({
+    required String query,
+    NewsCategory? category,
+    SearchSort sort = SearchSort.relevance,
+    int page = 1,
+  }) {
+    return _search(
+      query: query,
+      category: category,
+      orderBy: switch (sort) {
+        SearchSort.relevance => 'relevance',
+        SearchSort.newest => 'newest',
+      },
+      page: page,
+    );
+  }
+
+  /// Filtering and sorting happen on the server, so only the stories that
+  /// will be shown are downloaded.
   Future<ArticlePage> _search({
-    required NewsCategory category,
+    String? query,
+    NewsCategory? category,
     required String orderBy,
     required int page,
   }) async {
     final json = await _client.get(
       '/search',
       queryParameters: {
+        'q': ?query,
         ..._filterFor(category),
         'order-by': orderBy,
         'page': page,
@@ -54,8 +77,9 @@ class GuardianNewsRepository implements NewsRepository {
   }
 
   /// Guardian filters behind each desk. A comma combines tags with AND.
-  static Map<String, String> _filterFor(NewsCategory category) {
+  static Map<String, String> _filterFor(NewsCategory? category) {
     return switch (category) {
+      null => {'tag': _articlesOnly},
       NewsCategory.business => {'section': 'business', 'tag': _articlesOnly},
       NewsCategory.markets => {'tag': 'business/stock-markets,$_articlesOnly'},
       NewsCategory.economy => {'tag': 'business/economics,$_articlesOnly'},

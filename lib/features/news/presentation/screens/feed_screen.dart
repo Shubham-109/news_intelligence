@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../core/error/failure.dart';
 import '../../../../core/widgets/message_view.dart';
-import '../../../../core/widgets/snack_bar.dart';
 import '../../domain/news_category.dart';
 import '../providers/feed_provider.dart';
 import '../widgets/article_list_skeleton.dart';
@@ -100,7 +98,7 @@ class _CategoryFeed extends ConsumerWidget {
         data: value,
         showLead: true,
         showSection: false,
-        onRefresh: () => _refresh(context, ref),
+        onRefresh: () => ref.read(provider.notifier).refresh(),
         onLoadMore: () => ref.read(provider.notifier).loadMore(),
       ),
       AsyncValue(:final error?, isLoading: false) => MessageView.error(
@@ -109,14 +107,5 @@ class _CategoryFeed extends ConsumerWidget {
       ),
       _ => const ArticleListSkeleton(showLead: true),
     };
-  }
-
-  Future<void> _refresh(BuildContext context, WidgetRef ref) async {
-    try {
-      await ref.read(feedProvider(category).notifier).refresh();
-    } on Failure catch (error) {
-      // The stories already on screen stay put; only the refresh failed.
-      if (context.mounted) showSnackBar(context, error.message);
-    }
   }
 }

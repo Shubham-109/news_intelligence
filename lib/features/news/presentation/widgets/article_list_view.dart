@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/error/failure.dart';
+import '../../../../core/widgets/snack_bar.dart';
 import '../providers/paged_articles.dart';
 import 'article_tile.dart';
 import 'lead_article_card.dart';
@@ -19,7 +21,11 @@ class ArticleListView extends StatelessWidget {
   });
 
   final PagedArticles data;
+
+  /// Reloads the list. A failure is shown in a snack bar while the current
+  /// articles stay on screen.
   final RefreshCallback onRefresh;
+
   final VoidCallback onLoadMore;
 
   /// Shows the first article as a large lead story.
@@ -41,6 +47,14 @@ class ArticleListView extends StatelessWidget {
     return false;
   }
 
+  Future<void> _refresh(BuildContext context) async {
+    try {
+      await onRefresh();
+    } on Failure catch (error) {
+      if (context.mounted) showSnackBar(context, error.message);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final articles = data.articles;
@@ -48,7 +62,7 @@ class ArticleListView extends StatelessWidget {
     return NotificationListener<ScrollNotification>(
       onNotification: _handleScroll,
       child: RefreshIndicator.adaptive(
-        onRefresh: onRefresh,
+        onRefresh: () => _refresh(context),
         child: ListView.separated(
           physics: const AlwaysScrollableScrollPhysics(),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
