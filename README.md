@@ -37,6 +37,8 @@ The key is loaded at startup with `flutter_dotenv`. `.env` is ignored by git, so
 
 Like any key shipped inside a mobile app, it can be read from the app bundle. A production app would call the API through its own backend instead.
 
+In debug builds every API request and response (URL, query parameters, headers and body) is printed to the console through `debugPrint` with `pretty_dio_logger`. Release builds log nothing. The printed query parameters include the API key, so take care when sharing debug logs.
+
 To sign in, use any email address and a password with at least 6 characters.
 
 Run the tests with:
@@ -76,7 +78,7 @@ lib/
 ├── core/                      Shared code with no feature knowledge
 │   ├── config/                API settings
 │   ├── error/                 Sealed Failure types
-│   ├── network/               Dio client, error mapping and the retry rule
+│   ├── network/               Dio client, debug logging, error mapping and the retry rule
 │   ├── storage/               Hive setup and safe writes
 │   ├── theme/                 Colors and typography
 │   ├── utils/                 Date formatting and a provider cache helper
