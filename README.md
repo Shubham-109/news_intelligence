@@ -93,7 +93,7 @@ Tests mirror this layout under `test/`.
 * It is the official API of a major newsroom, has been running since 2009, and the free developer key allows 500 calls a day.
 * It returns the full article body. The article screen shows the whole story inside the app, and favorites keep that text for offline reading. The free NewsAPI plan, the usual alternative, cuts content short, delays articles by 24 hours and is limited to development use.
 * The body comes with the list request, so opening an article needs no second call. Its HTML is turned into plain paragraphs while parsing, leaving out embedded media and related links.
-* Every request is limited to written articles (`type/article`), so live blogs and galleries never reach the reading view. Desks map to Guardian sections and tags.
+* Every request asks only for articles (`type=article`), so live blogs, galleries and video never reach the reading view. Desks map to Guardian sections and tags.
 
 ### State management with Riverpod 3
 

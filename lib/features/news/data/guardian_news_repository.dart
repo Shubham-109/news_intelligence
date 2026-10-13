@@ -24,10 +24,6 @@ class GuardianNewsRepository implements NewsRepository {
   /// favorites never need a second request.
   static const _fields = 'headline,trailText,byline,thumbnail,wordcount,body';
 
-  /// Keeps results to written articles, leaving out live blogs, galleries,
-  /// video and audio.
-  static const _articlesOnly = 'type/article';
-
   @override
   Future<ArticlePage> getHeadlines({
     required NewsCategory category,
@@ -67,6 +63,7 @@ class GuardianNewsRepository implements NewsRepository {
       queryParameters: {
         'q': ?query,
         ..._filterFor(category),
+        'type': 'article',
         'order-by': orderBy,
         'page': page,
         'page-size': ApiConfig.pageSize,
@@ -76,19 +73,15 @@ class GuardianNewsRepository implements NewsRepository {
     return _parsePage(json);
   }
 
-  /// Guardian filters behind each desk. A comma combines tags with AND.
   static Map<String, String> _filterFor(NewsCategory? category) {
     return switch (category) {
-      null => {'tag': _articlesOnly},
-      NewsCategory.business => {'section': 'business', 'tag': _articlesOnly},
-      NewsCategory.markets => {'tag': 'business/stock-markets,$_articlesOnly'},
-      NewsCategory.economy => {'tag': 'business/economics,$_articlesOnly'},
-      NewsCategory.banking => {'tag': 'business/banking,$_articlesOnly'},
-      NewsCategory.energy => {'tag': 'business/energy-industry,$_articlesOnly'},
-      NewsCategory.technology => {
-        'section': 'technology',
-        'tag': _articlesOnly,
-      },
+      null => const {},
+      NewsCategory.business => const {'section': 'business'},
+      NewsCategory.markets => const {'tag': 'business/stock-markets'},
+      NewsCategory.economy => const {'tag': 'business/economics'},
+      NewsCategory.banking => const {'tag': 'business/banking'},
+      NewsCategory.energy => const {'tag': 'business/energy-industry'},
+      NewsCategory.technology => const {'section': 'technology'},
     };
   }
 
