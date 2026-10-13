@@ -30,7 +30,6 @@ ArticlePage _page(int page, List<String> ids, {int totalPages = 3}) {
   );
 }
 
-/// Serves canned pages, and can be told to fail or stall a request.
 class _FakeNewsRepository implements NewsRepository {
   final pages = <int, ArticlePage>{};
   final failingPages = <int>{};

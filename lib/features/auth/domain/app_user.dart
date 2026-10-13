@@ -1,11 +1,8 @@
-/// The person using the app.
 class AppUser {
   const AppUser({required this.email});
 
   final String email;
 
-  /// First name taken from the email for the greeting, such as "Priya" for
-  /// priya.shah@example.com.
   String get firstName {
     final localPart = email.split('@').first;
     final firstWord = localPart

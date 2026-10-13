@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/skeleton.dart';
 
-/// Loading placeholder shaped like the article list, so content does not
-/// jump around when it arrives.
 class ArticleListSkeleton extends StatelessWidget {
   const ArticleListSkeleton({super.key, this.showLead = false});
 

@@ -2,7 +2,6 @@ import 'package:html/parser.dart' show parseFragment;
 
 import '../domain/article.dart';
 
-/// Builds an [Article] from a content item returned by The Guardian API.
 class ArticleModel extends Article {
   const ArticleModel({
     required super.id,
@@ -40,10 +39,7 @@ class ArticleModel extends Article {
     );
   }
 
-  /// Guardian image links end in the rendered width, so the same crop can be
-  /// requested at 1000 pixels for the article page.
   static final _thumbnailWidth = RegExp(r'/500\.jpg$');
-
   static final _lineBreak = RegExp(r'<br\s*/?>');
   static final _spaces = RegExp(r'[ \t\u00A0]+');
 
@@ -51,8 +47,6 @@ class ArticleModel extends Article {
     return _tidy(parseFragment(html).text ?? '');
   }
 
-  /// Turns body HTML into plain paragraphs. Only top level text blocks are
-  /// kept, which leaves out embedded media, captions and related links.
   static List<String> _paragraphs(String html) {
     if (html.isEmpty) return const [];
 
@@ -69,7 +63,6 @@ class ArticleModel extends Article {
     return blocks.map(_tidy).where((text) => text.isNotEmpty).toList();
   }
 
-  /// Collapses repeated spaces while keeping intentional line breaks.
   static String _tidy(String text) {
     return text
         .split('\n')

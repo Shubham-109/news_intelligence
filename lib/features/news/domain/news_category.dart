@@ -1,4 +1,3 @@
-/// Business desks the feed is organised around.
 enum NewsCategory {
   business('Business'),
   markets('Markets'),

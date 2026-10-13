@@ -9,15 +9,10 @@ final authRepositoryProvider = Provider<AuthRepository>(
   (ref) => LocalAuthRepository(ref.watch(sessionBoxProvider)),
 );
 
-/// Stands in for a real auth backend, which this assignment does not have.
-///
-/// Any well formed email and password is accepted. Only the email is kept on
-/// the device to restore the session; the password is never stored.
 class LocalAuthRepository implements AuthRepository {
   const LocalAuthRepository(this._box);
 
   final Box<String> _box;
-
   static const _emailKey = 'email';
 
   @override
@@ -31,7 +26,6 @@ class LocalAuthRepository implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    // Gives the screen the same loading moment a network call would.
     await Future<void>.delayed(const Duration(milliseconds: 600));
 
     final normalizedEmail = email.trim().toLowerCase();

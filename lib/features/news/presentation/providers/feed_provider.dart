@@ -6,8 +6,6 @@ import '../../domain/news_category.dart';
 import 'paged_articles.dart';
 import 'paged_articles_notifier.dart';
 
-/// Latest stories for each desk. Kept alive for the session, so switching
-/// tabs shows what was already loaded and pull to refresh fetches new stories.
 final feedProvider =
     AsyncNotifierProvider.family<FeedNotifier, PagedArticles, NewsCategory>(
       FeedNotifier.new,

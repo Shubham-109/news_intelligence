@@ -9,7 +9,6 @@ import '../providers/search_provider.dart';
 import '../widgets/article_list_skeleton.dart';
 import '../widgets/article_list_view.dart';
 
-/// Searches every story, narrowed by desk and sorted by relevance or date.
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
@@ -30,7 +29,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     ref.read(searchQueryProvider.notifier).setText(text);
   }
 
-  /// Fills the field with [text] and searches for it.
   void _searchFor(String text) {
     _controller.value = TextEditingValue(
       text: text,
@@ -152,7 +150,6 @@ class _DeskFilter extends StatelessWidget {
   }
 }
 
-/// Result count and sort order, shown above the results.
 class _ResultsBar extends ConsumerWidget {
   const _ResultsBar({required this.query, required this.onSortChanged});
 
@@ -237,7 +234,6 @@ class _SearchResults extends ConsumerWidget {
   }
 }
 
-/// Shown before the user has typed enough to search.
 class _SearchPrompt extends StatelessWidget {
   const _SearchPrompt({required this.onSuggestion});
 

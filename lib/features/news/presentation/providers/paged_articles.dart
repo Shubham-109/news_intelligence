@@ -4,7 +4,6 @@ import '../../../../core/error/failure.dart';
 import '../../domain/article.dart';
 import '../../domain/article_page.dart';
 
-/// Articles loaded so far for an endless list, plus the paging status.
 @immutable
 class PagedArticles {
   const PagedArticles({
@@ -30,9 +29,6 @@ class PagedArticles {
   final bool hasMore;
   final int totalResults;
   final bool isLoadingMore;
-
-  /// Why the last attempt to load the next page failed. The articles already
-  /// on screen stay visible.
   final Failure? loadMoreError;
 
   PagedArticles loadingMore() => _withStatus(isLoadingMore: true);
@@ -41,8 +37,6 @@ class PagedArticles {
     return _withStatus(loadMoreError: error);
   }
 
-  /// Adds the next page. Stories can shift between pages while new ones are
-  /// published, so anything already in the list is skipped.
   PagedArticles append(ArticlePage next) {
     final seenIds = {for (final article in articles) article.id};
     return PagedArticles(

@@ -6,14 +6,11 @@ import 'package:path_provider/path_provider.dart';
 
 import '../error/failure.dart';
 
-/// Names of the Hive boxes the app keeps on the device.
 abstract final class HiveBoxes {
   static const session = 'session';
   static const favorites = 'favorites';
 }
 
-/// Opens local storage before the first frame, so repositories can read
-/// their boxes synchronously.
 Future<void> initLocalStorage() async {
   final directory = await getApplicationSupportDirectory();
   Hive.init(directory.path);
@@ -31,7 +28,6 @@ final favoritesBoxProvider = Provider<Box<Map>>(
   (ref) => Hive.box<Map>(HiveBoxes.favorites),
 );
 
-/// Runs a storage write and reports any problem as a [StorageFailure].
 Future<void> writeToStorage(Future<void> Function() write) async {
   try {
     await write();

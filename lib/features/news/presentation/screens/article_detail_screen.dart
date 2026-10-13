@@ -14,10 +14,6 @@ import '../../domain/article.dart';
 import '../widgets/article_image.dart';
 import '../widgets/article_meta.dart';
 
-/// The full story: headline, summary, byline, image and body text.
-///
-/// Everything shown here arrives with the list request, so the page opens
-/// instantly and needs no connection for saved articles.
 class ArticleDetailScreen extends StatelessWidget {
   const ArticleDetailScreen({super.key, required this.article});
 
@@ -29,7 +25,6 @@ class ArticleDetailScreen extends StatelessWidget {
     );
   }
 
-  /// Comfortable line length on tablets and in landscape.
   static const _maxContentWidth = 680.0;
 
   @override
@@ -176,7 +171,6 @@ class _Byline extends StatelessWidget {
   }
 }
 
-/// Credit and a link to the original story, as The Guardian's terms ask.
 class _SourceLink extends StatelessWidget {
   const _SourceLink({required this.url});
 

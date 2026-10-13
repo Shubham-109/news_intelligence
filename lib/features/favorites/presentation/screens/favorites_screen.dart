@@ -8,8 +8,6 @@ import '../../../news/domain/article.dart';
 import '../../../news/presentation/widgets/article_tile.dart';
 import '../providers/favorites_provider.dart';
 
-/// Articles saved for later. They are read from the device, so the list and
-/// every saved story work offline.
 class FavoritesScreen extends ConsumerWidget {
   const FavoritesScreen({super.key});
 
@@ -54,8 +52,6 @@ class FavoritesScreen extends ConsumerWidget {
                       itemCount: favorites.length,
                       separatorBuilder: (_, _) =>
                           const Divider(indent: 20, endIndent: 20),
-                      // The screen context is used for removal, because the
-                      // row's own context is gone once it is swiped away.
                       itemBuilder: (_, index) {
                         final article = favorites[index];
                         return Dismissible(
@@ -105,7 +101,6 @@ class FavoritesScreen extends ConsumerWidget {
   }
 }
 
-/// Shown behind a row while it is swiped away.
 class _RemoveBackground extends StatelessWidget {
   const _RemoveBackground();
 

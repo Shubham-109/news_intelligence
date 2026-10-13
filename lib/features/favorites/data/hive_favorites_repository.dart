@@ -9,8 +9,6 @@ final favoritesRepositoryProvider = Provider<FavoritesRepository>(
   (ref) => HiveFavoritesRepository(ref.watch(favoritesBoxProvider)),
 );
 
-/// Keeps each favorite as a plain map keyed by article id. The full text is
-/// stored as well, so saved stories open without a connection.
 class HiveFavoritesRepository implements FavoritesRepository {
   const HiveFavoritesRepository(this._box);
 

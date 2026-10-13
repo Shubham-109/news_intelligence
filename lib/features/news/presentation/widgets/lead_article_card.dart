@@ -6,7 +6,6 @@ import '../screens/article_detail_screen.dart';
 import 'article_image.dart';
 import 'article_meta.dart';
 
-/// Top story of a desk, shown with a large image and its summary.
 class LeadArticleCard extends StatelessWidget {
   const LeadArticleCard({
     super.key,

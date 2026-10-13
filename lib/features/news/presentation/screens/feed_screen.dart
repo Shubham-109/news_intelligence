@@ -12,7 +12,6 @@ import '../providers/feed_provider.dart';
 import '../widgets/article_list_skeleton.dart';
 import '../widgets/article_list_view.dart';
 
-/// Latest business stories, with one tab per desk.
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
 
@@ -102,7 +101,6 @@ class _FeedHeader extends ConsumerWidget {
   }
 }
 
-/// Avatar that opens a sheet with the signed in email and sign out.
 class _AccountButton extends ConsumerWidget {
   const _AccountButton({required this.user});
 
@@ -178,9 +176,6 @@ class _CategoryFeed extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = feedProvider(category);
 
-    // Loaded stories win over everything else, so a failed refresh keeps them
-    // on screen. A retry keeps the old error while it runs, which is why the
-    // error view also requires that nothing is loading.
     return switch (ref.watch(provider)) {
       AsyncValue(:final value?) when value.articles.isEmpty =>
         const MessageView(

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/date_formatting.dart';
 import '../../domain/article.dart';
 
-/// Uppercase desk name shown above a headline.
 class SectionLabel extends StatelessWidget {
   const SectionLabel(this.section, {super.key});
 
@@ -23,8 +22,6 @@ class SectionLabel extends StatelessWidget {
   }
 }
 
-/// How old a story is and how long it takes to read, such as
-/// "3h ago · 4 min read".
 class ArticleMeta extends StatelessWidget {
   const ArticleMeta({super.key, required this.article});
 

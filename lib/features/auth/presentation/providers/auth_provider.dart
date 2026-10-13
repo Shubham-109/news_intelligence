@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/local_auth_repository.dart';
 import '../../domain/app_user.dart';
 
-/// The signed in user, or null when signed out. The session is read from the
-/// device at launch, so a returning user goes straight to the feed.
 final authControllerProvider = AsyncNotifierProvider<AuthController, AppUser?>(
   AuthController.new,
 );

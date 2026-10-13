@@ -6,10 +6,6 @@ import '../providers/paged_articles.dart';
 import 'article_tile.dart';
 import 'lead_article_card.dart';
 
-/// Endless, pull to refresh list of articles.
-///
-/// Requests the next page as the reader nears the end, and shows progress, a
-/// retry option or an end note at the bottom.
 class ArticleListView extends StatelessWidget {
   const ArticleListView({
     super.key,
@@ -21,21 +17,10 @@ class ArticleListView extends StatelessWidget {
   });
 
   final PagedArticles data;
-
-  /// Reloads the list. A failure is shown in a snack bar while the current
-  /// articles stay on screen.
   final RefreshCallback onRefresh;
-
   final VoidCallback onLoadMore;
-
-  /// Shows the first article as a large lead story.
   final bool showLead;
-
-  /// Shows the desk label above each headline. Off when the whole list
-  /// already belongs to one desk.
   final bool showSection;
-
-  /// Distance from the end, in pixels, at which the next page starts loading.
   static const _prefetchExtent = 600.0;
 
   bool _handleScroll(ScrollNotification notification) {
@@ -96,7 +81,6 @@ class _ListFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final error = data.loadMoreError;
-
     final Widget content;
     if (error != null) {
       content = Column(

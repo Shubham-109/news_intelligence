@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../error/failure.dart';
 
-/// Centered icon, title and message with an optional action below.
-///
-/// Covers empty, idle and error states so they look the same on every screen.
 class MessageView extends StatelessWidget {
   const MessageView({
     super.key,
@@ -14,7 +11,6 @@ class MessageView extends StatelessWidget {
     this.action,
   });
 
-  /// Error state for anything a provider can throw, with a retry button.
   factory MessageView.error(
     Object error, {
     Key? key,

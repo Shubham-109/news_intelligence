@@ -4,8 +4,6 @@ import '../features/favorites/presentation/screens/favorites_screen.dart';
 import '../features/news/presentation/screens/feed_screen.dart';
 import '../features/news/presentation/screens/search_screen.dart';
 
-/// Main area of the app with bottom navigation. Each tab keeps its state,
-/// such as the scroll position, while another one is open.
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key});
 
@@ -18,7 +16,6 @@ class _HomeShellState extends State<HomeShell> {
 
   @override
   Widget build(BuildContext context) {
-    // On Android, back returns to the feed before it leaves the app.
     return PopScope(
       canPop: _index == 0,
       onPopInvokedWithResult: (didPop, _) {
@@ -40,7 +37,6 @@ class _HomeShellState extends State<HomeShell> {
           child: NavigationBar(
             selectedIndex: _index,
             onDestinationSelected: (index) {
-              // A focused field on a hidden tab would keep the keyboard open.
               FocusManager.instance.primaryFocus?.unfocus();
               setState(() => _index = index);
             },

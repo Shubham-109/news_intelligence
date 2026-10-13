@@ -1,11 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-/// Rounded network image with a quiet placeholder while it loads.
-///
-/// Images are cached on disk, so stories opened before still show their
-/// pictures offline. When [url] is missing or fails to load, [fallbackUrl] is
-/// tried before settling on the plain placeholder.
 class ArticleImage extends StatelessWidget {
   const ArticleImage({
     super.key,
@@ -44,7 +39,6 @@ class ArticleImage extends StatelessWidget {
           : _buildImage(context, fallback, null);
     }
 
-    // Decoding at display size keeps memory low in long lists.
     final displayWidth = width;
     final cacheWidth = displayWidth == null
         ? null

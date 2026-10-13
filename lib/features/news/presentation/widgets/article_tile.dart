@@ -5,8 +5,6 @@ import '../screens/article_detail_screen.dart';
 import 'article_image.dart';
 import 'article_meta.dart';
 
-/// Compact list row: desk, headline and details on the left, thumbnail on
-/// the right.
 class ArticleTile extends StatelessWidget {
   const ArticleTile({
     super.key,
@@ -15,8 +13,6 @@ class ArticleTile extends StatelessWidget {
   });
 
   final Article article;
-
-  /// Lists that already belong to one desk can leave the label out.
   final bool showSection;
 
   @override

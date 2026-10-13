@@ -1,7 +1,5 @@
 import 'package:intl/intl.dart';
 
-/// Compact age of a story for lists: "Just now", "5m ago", "3h ago", "2d ago",
-/// then a short date such as "12 Oct", with the year when it differs.
 String formatRelativeTime(DateTime time, {DateTime? now}) {
   final reference = now ?? DateTime.now();
   final age = reference.difference(time);
@@ -16,7 +14,6 @@ String formatRelativeTime(DateTime time, {DateTime? now}) {
   return DateFormat(pattern).format(local);
 }
 
-/// Full publication date for the article page, such as "13 October 2026, 09:30".
 String formatFullDate(DateTime time) {
   return DateFormat('d MMMM y, HH:mm').format(time.toLocal());
 }

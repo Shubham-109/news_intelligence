@@ -45,7 +45,6 @@ flutter:
         - asset: assets/fonts/geist/Geist-SemiBold.ttf
           weight: 600
 
-# Regenerate the platform icons with: dart run flutter_launcher_icons
 flutter_launcher_icons:
   image_path: assets/icon/app_icon.png
   android: true

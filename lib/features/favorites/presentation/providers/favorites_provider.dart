@@ -4,13 +4,10 @@ import '../../../../core/error/failure.dart';
 import '../../../news/domain/article.dart';
 import '../../data/hive_favorites_repository.dart';
 
-/// Saved articles, newest story first. Every change is written to Hive
-/// straight away, so the list survives restarts and works offline.
 final favoritesProvider = NotifierProvider<FavoritesNotifier, List<Article>>(
   FavoritesNotifier.new,
 );
 
-/// Whether the article with the given id is saved.
 final isFavoriteProvider = Provider.autoDispose.family<bool, String>(
   (ref, articleId) =>
       ref.watch(favoritesProvider).any((article) => article.id == articleId),
@@ -26,9 +23,6 @@ class FavoritesNotifier extends Notifier<List<Article>> {
     state = repository.getAll();
   }
 
-  /// Takes [article] out of the list at once, so a swiped row disappears
-  /// immediately, then removes it from storage. The list is restored if the
-  /// write fails.
   Future<void> remove(Article article) async {
     final previous = state;
     state = [
@@ -43,8 +37,6 @@ class FavoritesNotifier extends Notifier<List<Article>> {
     }
   }
 
-  /// Saves [article], or removes it when it is already saved. Returns whether
-  /// the article ends up saved.
   Future<bool> toggle(Article article) async {
     final isSaved = state.any((saved) => saved.id == article.id);
     if (isSaved) {

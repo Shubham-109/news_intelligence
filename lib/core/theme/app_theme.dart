@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Visual language of the app: warm paper surfaces, near black ink and a
-/// single deep green accent. Gelasio, a sturdy serif, carries headlines and
-/// article text. Geist handles controls, labels and metadata.
 abstract final class AppTheme {
   static const serif = 'Gelasio';
   static const sans = 'Geist';
-
   static final ThemeData light = _build(_lightColors);
   static final ThemeData dark = _build(_darkColors);
 
@@ -246,13 +242,11 @@ abstract final class AppTheme {
     }
 
     return TextTheme(
-      // Serif roles: headlines and anything meant to be read.
       displaySmall: serifStyle(34, 1.15),
       headlineMedium: serifStyle(28, 1.2),
       headlineSmall: serifStyle(23, 1.25),
       titleLarge: serifStyle(20, 1.3),
       titleMedium: serifStyle(17, 1.32),
-      // Sans roles: interface text, labels and metadata.
       titleSmall: sansStyle(14.5, 1.4, FontWeight.w600),
       bodyLarge: sansStyle(16, 1.5, FontWeight.w400),
       bodyMedium: sansStyle(14, 1.45, FontWeight.w400),
@@ -269,17 +263,13 @@ abstract final class AppTheme {
   }
 }
 
-/// Text styles specific to this app, derived from the theme so they follow
-/// light and dark mode.
 extension AppTextStyles on TextTheme {
-  /// Serif summary shown under a headline.
   TextStyle get standfirst => titleMedium!.copyWith(
     fontSize: 16.5,
     height: 1.45,
     fontWeight: FontWeight.w400,
   );
 
-  /// Long form article text, sized for comfortable reading.
   TextStyle get articleBody => titleMedium!.copyWith(
     fontSize: 18,
     height: 1.65,

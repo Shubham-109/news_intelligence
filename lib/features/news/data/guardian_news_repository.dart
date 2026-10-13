@@ -13,15 +13,10 @@ final newsRepositoryProvider = Provider<NewsRepository>(
   (ref) => GuardianNewsRepository(ref.watch(apiClientProvider)),
 );
 
-/// [NewsRepository] backed by the search endpoint of The Guardian Open
-/// Platform.
 class GuardianNewsRepository implements NewsRepository {
   const GuardianNewsRepository(this._client);
 
   final ApiClient _client;
-
-  /// Asking for the body up front means the article page and offline
-  /// favorites never need a second request.
   static const _fields = 'headline,trailText,byline,thumbnail,wordcount,body';
 
   @override
@@ -50,8 +45,6 @@ class GuardianNewsRepository implements NewsRepository {
     );
   }
 
-  /// Filtering and sorting happen on the server, so only the stories that
-  /// will be shown are downloaded.
   Future<ArticlePage> _search({
     String? query,
     NewsCategory? category,
@@ -99,7 +92,6 @@ class GuardianNewsRepository implements NewsRepository {
         totalResults: response['total'] as int,
       );
     } on TypeError {
-      // The payload did not have the shape the API documents.
       throw const ServerFailure();
     } on FormatException {
       throw const ServerFailure();

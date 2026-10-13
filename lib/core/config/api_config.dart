@@ -1,6 +1,5 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-/// Settings for The Guardian Open Platform content API.
 abstract final class ApiConfig {
   static const baseUrl = 'https://content.guardianapis.com';
 

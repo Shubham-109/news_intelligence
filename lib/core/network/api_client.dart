@@ -19,8 +19,6 @@ final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient(dio);
 });
 
-/// Thin wrapper around [Dio] that returns decoded JSON and reports every
-/// transport problem as a [Failure].
 class ApiClient {
   const ApiClient(this._dio);
 
@@ -44,7 +42,6 @@ class ApiClient {
   }
 }
 
-/// Picks the [Failure] that best describes a failed request.
 Failure failureFromDioException(DioException error) {
   return switch (error.type) {
     DioExceptionType.connectionTimeout ||

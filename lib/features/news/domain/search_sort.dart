@@ -1,4 +1,3 @@
-/// Order of search results.
 enum SearchSort {
   relevance('Most relevant'),
   newest('Newest first');

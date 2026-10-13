@@ -15,13 +15,10 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   static final _emailPattern = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
   static const _minPasswordLength = 6;
-
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   var _obscurePassword = true;
-
-  /// Fields only show errors once the user has tried to sign in.
   var _submitted = false;
 
   @override
@@ -93,8 +90,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 400),
                     child: AutofillGroup(
-                      // Demo credentials are not worth offering to save in
-                      // the system password manager.
                       onDisposeAction: AutofillContextAction.cancel,
                       child: Form(
                         key: _formKey,

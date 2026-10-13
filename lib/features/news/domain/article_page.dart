@@ -1,6 +1,5 @@
 import 'article.dart';
 
-/// One page of articles, plus the paging details reported by the API.
 class ArticlePage {
   const ArticlePage({
     required this.articles,

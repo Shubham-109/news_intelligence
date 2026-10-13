@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Gently pulses its child to signal that content is loading.
-///
-/// Holds still when the platform asks for reduced motion, and reads as a
-/// single "Loading" label to screen readers.
 class SkeletonPulse extends StatefulWidget {
   const SkeletonPulse({super.key, required this.child});
 
@@ -51,7 +47,6 @@ class _SkeletonPulseState extends State<SkeletonPulse>
   }
 }
 
-/// A rounded placeholder shape, meant to sit inside a [SkeletonPulse].
 class SkeletonBlock extends StatelessWidget {
   const SkeletonBlock({
     super.key,
