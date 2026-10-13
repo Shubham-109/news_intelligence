@@ -4,6 +4,12 @@ A Flutter app for following business news. It reads live stories from The Guardi
 
 Built for the Mini News Intelligence assignment with Flutter, Riverpod and Hive.
 
+## Demo
+
+[![Feed, article, search and favorites screens](docs/preview.png)](docs/demo.mp4)
+
+[Watch the screen recording](docs/demo.mp4) (70 seconds, Android, dark mode): browsing desks, reading an article, searching, saving a favorite and the offline message.
+
 ## What it does
 
 * **Sign in**: a simple email and password login. The session is stored on the device, so the app opens straight to the feed next time.
