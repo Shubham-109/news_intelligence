@@ -26,3 +26,16 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  fonts:
+    - family: Gelasio
+      fonts:
+        - asset: assets/fonts/gelasio/Gelasio-Regular.ttf
+        - asset: assets/fonts/gelasio/Gelasio-SemiBold.ttf
+          weight: 600
+    - family: Geist
+      fonts:
+        - asset: assets/fonts/geist/Geist-Regular.ttf
+        - asset: assets/fonts/geist/Geist-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/geist/Geist-SemiBold.ttf
+          weight: 600
