@@ -18,42 +18,49 @@ class _HomeShellState extends State<HomeShell> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _index,
-        children: const [FeedScreen(), SearchScreen(), FavoritesScreen()],
-      ),
-      bottomNavigationBar: DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: Theme.of(context).colorScheme.outlineVariant,
+    // On Android, back returns to the feed before it leaves the app.
+    return PopScope(
+      canPop: _index == 0,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) setState(() => _index = 0);
+      },
+      child: Scaffold(
+        body: IndexedStack(
+          index: _index,
+          children: const [FeedScreen(), SearchScreen(), FavoritesScreen()],
+        ),
+        bottomNavigationBar: DecoratedBox(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
             ),
           ),
-        ),
-        child: NavigationBar(
-          selectedIndex: _index,
-          onDestinationSelected: (index) {
-            // A focused field on a hidden tab would keep the keyboard open.
-            FocusManager.instance.primaryFocus?.unfocus();
-            setState(() => _index = index);
-          },
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.newspaper_outlined),
-              selectedIcon: Icon(Icons.newspaper),
-              label: 'Feed',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.search_rounded),
-              label: 'Search',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.bookmark_border_rounded),
-              selectedIcon: Icon(Icons.bookmark_rounded),
-              label: 'Favorites',
-            ),
-          ],
+          child: NavigationBar(
+            selectedIndex: _index,
+            onDestinationSelected: (index) {
+              // A focused field on a hidden tab would keep the keyboard open.
+              FocusManager.instance.primaryFocus?.unfocus();
+              setState(() => _index = index);
+            },
+            destinations: const [
+              NavigationDestination(
+                icon: Icon(Icons.newspaper_outlined),
+                selectedIcon: Icon(Icons.newspaper),
+                label: 'Feed',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.search_rounded),
+                label: 'Search',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.bookmark_border_rounded),
+                selectedIcon: Icon(Icons.bookmark_rounded),
+                label: 'Favorites',
+              ),
+            ],
+          ),
         ),
       ),
     );
