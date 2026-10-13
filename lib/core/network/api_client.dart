@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../config/api_config.dart';
 import '../error/failure.dart';
@@ -15,6 +17,16 @@ final apiClientProvider = Provider<ApiClient>((ref) {
       queryParameters: {'api-key': ApiConfig.apiKey},
     ),
   );
+  if (kDebugMode) {
+    dio.interceptors.add(
+      PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseHeader: true,
+        logPrint: (object) => debugPrint(object.toString()),
+      ),
+    );
+  }
   ref.onDispose(dio.close);
   return ApiClient(dio);
 });
